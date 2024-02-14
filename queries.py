@@ -23,9 +23,10 @@ execute_query_insert(query)
 
 query = """CREATE TABLE IF NOT EXISTS rating(
 id_rating INT PRIMARY KEY AUTO_INCREMENT,
-user¬_id INT,
+user_id INT,
 movie_id INT,
 valutazione INT,
+timestamp INT,
 CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES utente(user_id),
 CONSTRAINT fk_movie_user FOREIGN KEY (movie_id) REFERENCES movie(movie_id)
 );
