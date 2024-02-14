@@ -1,8 +1,37 @@
 from connessioni import *
 
+db_config = {
+    'host': 'localhost',
+    'user': 'root',
+    'password': '',
+    'database': 'daitv'
+}
+
+
 def create_db():
-    query = "CREATE DATABASE daitv;"
-    execute_query_insert(query)
+    localhost_connect = {
+        'host': db_config['host'],
+        'user': db_config['user'],
+        'password': db_config['password']
+    }
+
+    connection = mysql.connector.connect(**localhost_connect)
+    cursor = connection.cursor()
+
+
+    query_drop = f"DROP DATABASE {db_config['database']}"
+    cursor.execute(query_drop)
+    connection.commit()
+    
+    
+    query_db = f"CREATE DATABASE {db_config['database']}"
+
+    cursor.execute(query_db)
+    connection.commit()
+
+    cursor.close()
+    connection.close()
+
 
 def create_tables():
     query= """CREATE TABLE IF NOT EXISTS utente(
