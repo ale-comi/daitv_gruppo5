@@ -112,7 +112,31 @@ def inserimento_utente():
             execute_query_insert(query, (elem[1], elem[2], elem[4], elem[3]))
 
 
+def inserimento_type():
+    with (open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as file2):
+        lettore = csv.reader(file2)
+        next(lettore)
+        lista_film_generi = []
+        for elem in lettore:
+            lista_film_generi.append({"id_film":elem[0], "generi":elem[3].split(",")})
 
-    
+    query_id_genere = """SELECT genre_id
+    FROM genres
+    WHERE type = %s"""
+    print("Query in corso...")
+    for elem in lista_film_generi:
+        id_generi = []
+        for genere in elem["generi"]:
+            id_corrispondente = execute_query(query_id_genere, (genere,))
+            id_generi.append(id_corrispondente[0]["genre_id"])
+        elem["generi"] = id_generi
 
-
+    query = """
+        INSERT INTO type(genre_id, movie_id)
+        VALUES (%s,%s)
+        """
+    print("Query inserimento in corso...")
+    for elem in lista_film_generi:
+        for genere in elem["generi"]:
+            execute_query_insert(query, (genere, elem["id_film"]))
+    print("Dati caricati")
