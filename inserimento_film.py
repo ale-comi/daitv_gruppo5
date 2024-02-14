@@ -6,7 +6,7 @@ INSERT INTO movie(title, release_year)
 VALUES (%s, %s)
 """
 
-file = open("elenco_corretto.csv", mode="r", encoding="utf-8", newline="")
+file = open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="")
 
 lettore = csv.reader(file, delimiter=",")
 
