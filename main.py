@@ -1,23 +1,17 @@
-import connessioni as cn
-import queries as qs
-import inserimento_film as inf
-import inserimento_generi as ig
-import inserimento_ratings  as ir
-import inserimento_user as iu
+import connessioni as conn
+import queries as queries
+import popolamento_tabelle as pt
 
 try:
-
-
-
-    qs.create_db()
-    qs.create_tables()
-
-    inf.inserimento_film()
-    ig.inserimento_generi()
-    iu.inserimento_utente()
-    ir.inserimento_ratings()
-
-
+    conn.create_db()
+    queries.create_tables()
 except:
     pass
+
+pt.inserimento_film()
+pt.inserimento_utente()
+pt.inserimento_generi()
+pt.inserimento_ratings()
+ #type
+
 

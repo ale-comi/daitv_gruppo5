@@ -1,13 +1,12 @@
 import csv
 
-with open("Elenco Movies definitivo.csv", "r", encoding="utf-8") as file:
+with open("Dati/Elenco Movies definitivo.csv", "r", encoding="utf-8") as file:
     lettore = csv.reader(file)
     next(file)
     generi = set()
     indici = []
-    with open("Elenco_corretto.csv", "w", encoding="utf-8", newline="") as file_nuovo:
+    with open("Dati/Elenco_corretto.csv", "w", encoding="utf-8", newline="") as file_nuovo:
         scrittore = csv.writer(file_nuovo)
-        c = 1
         file_nuovo.write("MovieID,Title,Year,Genres"+"\n")
         for elem in lettore:
             if elem[0] == "16":
@@ -23,9 +22,9 @@ with open("Elenco Movies definitivo.csv", "r", encoding="utf-8") as file:
             anno_separato = elem[1].split("(")[-1].strip(" )")
             genere_separato = elem[2].split("|")
             if "," in titolo_separato:
-                stringa = f'{str(c)},"{titolo_separato}",{anno_separato}'
+                stringa = f'{elem[0]},"{titolo_separato}",{anno_separato}'
             else:
-                stringa = f"{str(c)},{titolo_separato},{anno_separato}"
+                stringa = f"{elem[0]},{titolo_separato},{anno_separato}"
             finale =""
             for i, genere in enumerate(genere_separato):
                 if i == 0:
@@ -33,7 +32,6 @@ with open("Elenco Movies definitivo.csv", "r", encoding="utf-8") as file:
                 else:
                     finale+= f",{genere}"
             stringa += f',"{finale}"'
-            c+=1
             file_nuovo.write(stringa+"\n")
 
 
