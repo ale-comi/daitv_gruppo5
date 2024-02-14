@@ -119,7 +119,7 @@ def inserimento_type():
 
     set_generi = set()
 
-    with open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as file
+    with open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as file:
 
         lettore = csv.reader(file, delimiter=",")
 
@@ -131,17 +131,22 @@ def inserimento_type():
                 set_generi.add(i)
 
         lista_generi = list(set_generi)
+        
+        diz_generi = {}
 
-        diz_generi = dict[i+1, genere for enum(lista_generi)]
+        for i, genere in enumerate(lista_generi):
+            diz_generi[i+1] = genere
+    
+    print(diz_generi)
 
 
-    with open("Dati/Elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as csvfile:
-        lettore = csv.DictReader(csvfile, delimiter=",")
+    # with open("Dati/Elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as csvfile:
+    #     lettore = csv.DictReader(csvfile, delimiter=",")
 
-        next(lettore)
+    #     next(lettore)
 
-        for riga in lettore:
-            print(riga)
+    #     for riga in lettore:
+    #         print(riga)
 
     
 
