@@ -114,40 +114,30 @@ def inserimento_utente():
 
 
 def inserimento_type():
-    query_genere = """"""
-
-
-    set_generi = set()
-
-    with open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as file:
-
-        lettore = csv.reader(file, delimiter=",")
-
+    with (open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as file2):
+        lettore = csv.reader(file2)
         next(lettore)
+        lista_film_generi = []
+        for elem in lettore:
+            lista_film_generi.append({"id_film":elem[0], "generi":elem[3].split(",")})
 
-        for riga in lettore:
-            riga = riga[3].strip("\"").split(",")
-            for i in riga:
-                set_generi.add(i)
+    query_id_genere = """SELECT genre_id
+    FROM genres
+    WHERE type = %s"""
+    print("Query in corso...")
+    for elem in lista_film_generi:
+        id_generi = []
+        for genere in elem["generi"]:
+            id_corrispondente = execute_query(query_id_genere, (genere,))
+            id_generi.append(id_corrispondente[0]["genre_id"])
+        elem["generi"] = id_generi
 
-        lista_generi = list(set_generi)
-        
-        diz_generi = {}
-
-        for i, genere in enumerate(lista_generi):
-            diz_generi[i+1] = genere
-    
-    print(diz_generi)
-
-
-    # with open("Dati/Elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as csvfile:
-    #     lettore = csv.DictReader(csvfile, delimiter=",")
-
-    #     next(lettore)
-
-    #     for riga in lettore:
-    #         print(riga)
-
-    
-
-
+    query = """
+        INSERT INTO type(genre_id, movie_id)
+        VALUES (%s,%s)
+        """
+    print("Query inserimento in corso...")
+    for elem in lista_film_generi:
+        for genere in elem["generi"]:
+            execute_query_insert(query, (genere, elem["id_film"]))
+    print("Dati caricati")
