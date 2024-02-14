@@ -106,7 +106,6 @@ def inserimento_ratings():
         print(j)
   
 
-
 def inserimento_utente():
     query = """
     INSERT INTO utente(gender, age, work, cap)
