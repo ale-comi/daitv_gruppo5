@@ -99,7 +99,6 @@ def inserimento_ratings():
         print(j)
   
 
-
 def inserimento_utente():
     query = """
     INSERT INTO utente(gender, age, work, cap)
@@ -113,40 +112,6 @@ def inserimento_utente():
             execute_query_insert(query, (elem[1], elem[2], elem[4], elem[3]))
 
 
-def inserimento_type():
-    query_genere = """"""
-
-
-    set_generi = set()
-
-    with open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as file:
-
-        lettore = csv.reader(file, delimiter=",")
-
-        next(lettore)
-
-        for riga in lettore:
-            riga = riga[3].strip("\"").split(",")
-            for i in riga:
-                set_generi.add(i)
-
-        lista_generi = list(set_generi)
-        
-        diz_generi = {}
-
-        for i, genere in enumerate(lista_generi):
-            diz_generi[i+1] = genere
-    
-    print(diz_generi)
-
-
-    # with open("Dati/Elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as csvfile:
-    #     lettore = csv.DictReader(csvfile, delimiter=",")
-
-    #     next(lettore)
-
-    #     for riga in lettore:
-    #         print(riga)
 
     
 
