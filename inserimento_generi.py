@@ -9,17 +9,25 @@ lettore = csv.reader(file, delimiter=",")
 
 next(lettore)
 
+set_generi = set()
+
 for riga in lettore:
-    set_generi.add(riga[3])
+    riga = riga[3].strip("\"").split(",")
+    for i in riga:
+        set_generi.add(i)
+
+lista_generi = list(set_generi)
 
 query_insert = """
 INSERT INTO genres(type) 
 VALUES (%s)
 """
 
-for i in set_generi:
+for i in lista_generi:
     execute_query_insert(
         query_insert,
         (
-            riga[3],
+            i,
         ))
+
+
