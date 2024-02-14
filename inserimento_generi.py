@@ -3,7 +3,7 @@ import csv
 
 set_generi = set()
 
-file = open("elenco_corretto.csv", mode="r", encoding="utf-8", newline="")
+file = open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="")
 
 lettore = csv.reader(file, delimiter=",")
 
