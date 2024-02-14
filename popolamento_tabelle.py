@@ -76,12 +76,19 @@ def inserimento_ratings():
             lista_rating.append(elem)
     
 
-    dim = 10000
+    dim = 5683
     i = 0
-    j = 10000
+    j = 5683
     size = len(lista_rating)
     print(size)
     print(lista_rating[1000208])
+
+    # for i in range(tot // dim + 1):
+    # definisco parametro k per calcolare ultimo intervallo
+    # j += dim
+    # if j > tot:
+    #     k = dim - (tot % dim)
+
 
     while size >= j:
    
