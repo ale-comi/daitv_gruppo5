@@ -45,7 +45,7 @@
       <nav id="sidebar">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
-            <button type="button" class="btn btn-outline-primary" style="margin-top: 10px" href="C:\Users\maxde\PycharmProjects\pythonProject\daitv_gruppo5\daitv_gruppo5\daitv_html\test2Bootstrap.html">Home</button>
+            <button type="button" class="btn btn-outline-primary" style="margin-top: 10px" href="/">Home</button>
             <br><h4>Generi</h4>
 <!--            Creare collegamento alla route per query per recuperare i generi-->
             <li class="nav-item">
@@ -81,12 +81,19 @@
           </ul>
         </nav>
 
+
         <div id="allMovies" style="display: block">
           <h4>All movie</h4>
-          <div class="film-card">Film 1</div>
-          <div class="film-card">Film 2</div>
+          {%for elem in lista_squadre%}
+            <div class="film-card">{{elem["title"]}}
+            <a>{{elem.title}}</a>
+              <p>{{elem.title}}</p>
+            </div>
+            <div class="film-card">{{elem.release_year}}</div>
+          {%endfor%}
           <!-- Aggiungere tutti i film con il genere, data uscita e media del rating-->
         </div>
+
 
 <!--        Creare collegamento alla route per query per recuperare i film in base al genere,-->
 <!--        data uscita e media del rating-->
