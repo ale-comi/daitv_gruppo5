@@ -12,7 +12,7 @@ pt.inserimento_film()
 pt.inserimento_utente()
 pt.inserimento_generi()
 pt.inserimento_ratings()
-pt.inserimento_type()
+# pt.inserimento_type()
  #type
 
 

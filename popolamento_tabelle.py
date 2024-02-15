@@ -76,9 +76,9 @@ def inserimento_ratings():
             lista_rating.append(elem)
     
 
-    dim = 5683
+    dim = 10000
     i = 0
-    j = 5683
+    j = 10000
     size = len(lista_rating)
     print(size)
     print(lista_rating[1000208])
