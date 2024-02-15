@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #sidebar {
+      background-color: #333;
+      color: #fff;
+      height: 100%;
+      position: fixed;
+      width: 250px; /* Aumenta la larghezza della sidebar a tuo piacimento */
+    }
+
+    .genre {
+      cursor: pointer;
+    }
+
+    .film-card {
+      width: 200px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+    }
+
+    #content {
+    margin-left: 250px; /* Assicura che il contenuto inizi dopo la sidebar */
+    padding: 20px;
+    box-sizing: border-box; /* Aggiunto per considerare il padding nel calcolo della larghezza totale */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <br><h4>Generi</h4>
+<!--            Creare collegamento alla route per query per recuperare i generi-->
+            <li class="nav-item">
+              <a class="nav-link genre" onclick="showMovies('action')">Azione</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link genre" onclick="showMovies('comedy')">Commedia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link genre" onclick="showMovies('drama')">Dramma</a>
+            </li>
+            <!-- Aggiungi altri generi secondo necessità -->
+          </ul>
+        </div>
+      </nav>
+
+      <main role="main" id="content">
+<!--        Creare collegamento alla route per query per recuperare i film in base al genere,-->
+<!--        data uscita e media del rating-->
+        <div id="actionMovies" style="display: none;">
+          <div class="film-card">Film Azione 1</div>
+          <div class="film-card">Film Azione 2</div>
+          <!-- Aggiungi altre card per il genere Azione -->
+        </div>
+
+        <div id="comedyMovies" style="display: none;">
+          <div class="film-card">Film Commedia 1</div>
+          <div class="film-card">Film Commedia 2</div>
+          <!-- Aggiungi altre card per il genere Commedia -->
+        </div>
+
+        <div id="dramaMovies" style="display: none;">
+          <div class="film-card">
+            <p>Film Drammatico 1</p>
+            <p>1974</p>
+            <p>Rating: 4.2</p>
+          </div>
+          <div class="film-card">
+            <p>Film Drammatico 2</p>
+            <p>1997</p>
+            <p>Rating: 6.2</p>
+          </div>
+          <div class="film-card">Film Drammatico 3</div>
+          <div class="film-card">Film Drammatico 4</div>
+          <div class="film-card">Film Drammatico 5</div>
+          <div class="film-card">Film Drammatico 6</div>
+          <div class="film-card">Film Drammatico 7</div>
+          <div class="film-card">Film Drammatico 8</div>
+          <div class="film-card">Film Drammatico 9</div>
+          <div class="film-card">Film Drammatico 10</div>
+          <!-- Aggiungi altre card per il genere Drammatico -->
+        </div>
+        <!-- Aggiungi altri contenitori per gli altri generi secondo necessità -->
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    function showMovies(genre) {
+      // Nascondi tutti i contenitori dei film
+      document.getElementById('actionMovies').style.display = 'none';
+      document.getElementById('comedyMovies').style.display = 'none';
+      document.getElementById('dramaMovies').style.display = 'none';
+
+      // Mostra solo il contenitore del genere selezionato
+      document.getElementById(genre + 'Movies').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
