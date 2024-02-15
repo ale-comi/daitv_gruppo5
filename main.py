@@ -17,4 +17,6 @@ pt.inserimento_generi()
 pt.inserimento_ratings()
 pt.inserimento_type()
 
+queries.update_utente()
+
 
