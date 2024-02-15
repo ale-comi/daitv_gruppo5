@@ -144,12 +144,16 @@ def inserimento_type():
     print(lista_film_generi)
     print( diz_genere)
 
+<<<<<<< HEAD
     tabella_type = []
     
+=======
+>>>>>>> Ale-test
     #1) creo dizionario nome: id
     #faccio for per lista_film_generi, sostituisco il nome genere all'id nella lista
     #eventuale sleep per evitare conflitto 
     #carico in batch questa lista come sopra
+<<<<<<< HEAD
     
     for elem in lista_film_generi:
         for id in elem['generi']
@@ -161,6 +165,12 @@ def inserimento_type():
 
     
 
+=======
+
+
+    
+    # for elem in lista_film_generi:
+>>>>>>> Ale-test
 
 
     # for elem in lista_film_generi:
