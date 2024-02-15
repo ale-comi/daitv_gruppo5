@@ -48,6 +48,8 @@ def inserimento_film():
                     riga[2]
 
                 ))
+
+    print("record tabella 'film' caricati con successo")
         
 
 def inserimento_generi():
@@ -65,6 +67,7 @@ def inserimento_generi():
                 i,
             ))
         
+    print("record tabella 'generi' caricati con successo")
 
 def inserimento_ratings():
     query = """
@@ -82,10 +85,14 @@ def inserimento_ratings():
 
     dim = 10000
     i = 0
-    j = 10000
+    j = dim
     size = len(lista_rating)
 
     for _ in range(size // dim + 1):
+
+        #ad ultimo ciclo assegno a j il valore dell'ultimo elemento +1
+        if j >= size:
+            j = j + (size % dim) - dim + 1
 
         params = [
             (elem[0],elem[1],elem[2],elem[3])
@@ -100,11 +107,8 @@ def inserimento_ratings():
         i += dim
         j += dim
 
-        #ad ultimo ciclo assegno a j il valore dell'ultimo elemento +1
-        if j >= size:
-            j = j + (size % dim) - dim + 1
-
-
+    print("record tabella 'rating' caricati con successo")
+        
 def inserimento_utente():
     query = """
     INSERT INTO utente(gender, age, work, cap)
@@ -116,6 +120,8 @@ def inserimento_utente():
         next(lettore)
         for elem in lettore:
             execute_query_insert(query, (elem[1], elem[2], elem[4], elem[3]))
+
+    print("record tabella 'utente' caricati con successo")
 
 
 def inserimento_type():
@@ -131,7 +137,8 @@ def inserimento_type():
     
     diz_genere = {}
 
-    query_genere = """SELECT genre_id, type
+    query_genere = """
+    SELECT genre_id, type
     FROM genres
     """
 
@@ -140,52 +147,39 @@ def inserimento_type():
     for diz in lista_diz_colonne:
         diz_genere[diz["type"]] = diz["genre_id"]
 
-
-    print(lista_film_generi)
-    print( diz_genere)
-
-<<<<<<< HEAD
     tabella_type = []
     
-=======
->>>>>>> Ale-test
-    #1) creo dizionario nome: id
-    #faccio for per lista_film_generi, sostituisco il nome genere all'id nella lista
-    #eventuale sleep per evitare conflitto 
-    #carico in batch questa lista come sopra
-<<<<<<< HEAD
-    
     for elem in lista_film_generi:
-        for id in elem['generi']
-        tabella_type.append([elem['id_film'], diz_genere[id]])
+        for id in elem['generi']:
+            tabella_type.append([diz_genere[id], elem['id_film']])
 
-    print(tabella_type)
+    query_insert = """
+    INSERT INTO type(genre_id, movie_id) 
+    VALUES (%s, %s)
+    """
 
+    dim = 1000
+    i = 0
+    j = dim
+    size = len(tabella_type)
 
+    for _ in range(size // dim + 1):
 
+        #ad ultimo ciclo assegno a j il valore dell'ultimo elemento +1
+        if j >= size:
+            j = j + (size % dim) - dim + 1
+
+        params = [
+            (elem[0],elem[1])
+            for elem in tabella_type[i : j :]
+            ]
+        
+        cursor.executemany(query_insert, params)
+        connessione.commit()
+
+        print(j)
+
+        i += dim
+        j += dim
     
-
-=======
-
-
-    
-    # for elem in lista_film_generi:
->>>>>>> Ale-test
-
-
-    # for elem in lista_film_generi:
-    #     id_generi = []
-    #     for genere in elem["generi"]:
-    #         id_corrispondente = execute_query(query_id_genere, (genere,))
-    #         id_generi.append(id_corrispondente[0]["genre_id"])
-    #     elem["generi"] = id_generi
-
-    # query = """
-    #     INSERT INTO type(genre_id, movie_id)
-    #     VALUES (%s,%s)
-    #     """
-    # print("Query inserimento in corso...")
-    # for elem in lista_film_generi:
-    #     for genere in elem["generi"]:
-    #         execute_query_insert(query, (genere, elem["id_film"]))
-    # print("Dati caricati")
+    print("record tabella 'type' caricati con successo")
