@@ -45,6 +45,7 @@
       <nav id="sidebar">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
+            <button type="button" class="btn btn-outline-primary" style="margin-top: 10px" href="C:\Users\maxde\PycharmProjects\pythonProject\daitv_gruppo5\daitv_gruppo5\daitv_html\test2Bootstrap.html">Home</button>
             <br><h4>Generi</h4>
 <!--            Creare collegamento alla route per query per recuperare i generi-->
             <li class="nav-item">
@@ -56,12 +57,37 @@
             <li class="nav-item">
               <a class="nav-link genre" onclick="showMovies('drama')">Dramma</a>
             </li>
-            <!-- Aggiungi altri generi secondo necessità -->
           </ul>
         </div>
       </nav>
 
       <main role="main" id="content">
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div id="allMovies" style="display: block">
+          <h4>All movie</h4>
+          <div class="film-card">Film 1</div>
+          <div class="film-card">Film 2</div>
+          <!-- Aggiungere tutti i film con il genere, data uscita e media del rating-->
+        </div>
+
 <!--        Creare collegamento alla route per query per recuperare i film in base al genere,-->
 <!--        data uscita e media del rating-->
         <div id="actionMovies" style="display: none;">
@@ -112,6 +138,7 @@
       document.getElementById('actionMovies').style.display = 'none';
       document.getElementById('comedyMovies').style.display = 'none';
       document.getElementById('dramaMovies').style.display = 'none';
+      document.getElementById('allMovies').style.display = 'none';
 
       // Mostra solo il contenitore del genere selezionato
       document.getElementById(genre + 'Movies').style.display = 'block';
