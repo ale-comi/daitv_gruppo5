@@ -1,6 +1,7 @@
 import connessioni as conn
 import queries as queries
 import popolamento_tabelle as pt
+import time
 
 try:
     conn.create_db()
@@ -12,7 +13,10 @@ pt.inserimento_film()
 pt.inserimento_utente()
 pt.inserimento_generi()
 pt.inserimento_ratings()
-# pt.inserimento_type()
+print("Wait 10 second")
+time.sleep(50)
+print("inizio metodo type")
+pt.inserimento_type()
  #type
 
 
