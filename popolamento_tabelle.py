@@ -88,24 +88,12 @@ def inserimento_ratings():
     j = dim
     size = len(lista_rating)
 
-<<<<<<< HEAD
     for _ in range(size // dim + 1):
 
         #ad ultimo ciclo assegno a j il valore dell'ultimo elemento +1
         if j >= size:
             j = j + (size % dim) - dim + 1
 
-=======
-    # for i in range(tot // dim + 1):
-    # definisco parametro k per calcolare ultimo intervallo
-    # j += dim
-    # if j > tot:
-    #     k = dim - (tot % dim)
-
-
-    while size >= j:
-   
->>>>>>> marco
         params = [
             (elem[0],elem[1],elem[2],elem[3])
             for elem in lista_rating[i : j :]
