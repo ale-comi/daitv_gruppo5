@@ -128,11 +128,7 @@ def inserimento_type():
 
     lista_generi = elenco_generi()
 
-    #1) creo dizionario nome: id
-    #faccio for per lista_film_generi, sostituisco il nome genere all'id nella lista
-    #eventuale sleep per evitare conflitto 
-    #carico in batch questa lista come sopra
-
+    
     diz_genere = {}
 
     query_genere = """SELECT genre_id, type
@@ -148,6 +144,13 @@ def inserimento_type():
     print(lista_film_generi)
     print( diz_genere)
 
+    #1) creo dizionario nome: id
+    #faccio for per lista_film_generi, sostituisco il nome genere all'id nella lista
+    #eventuale sleep per evitare conflitto 
+    #carico in batch questa lista come sopra
+
+
+    
     # for elem in lista_film_generi:
 
 
