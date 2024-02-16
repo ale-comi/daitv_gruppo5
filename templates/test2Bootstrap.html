@@ -9,7 +9,6 @@
     body {
       font-family: Arial, sans-serif;
       height: 100vh;
-      margin: 0;
     }
 
     #sidebar {
@@ -25,10 +24,13 @@
     }
 
     .film-card {
-      width: 200px;
+      width: 220px;
       border: 1px solid #ccc;
-      padding: 10px;
+      padding: 20px;
       margin: 10px;
+      background-color: #333;
+      color: #ccc;
+      opacity: 50;
     }
 
     #content {
@@ -39,7 +41,6 @@
   </style>
 </head>
 <body>
-
   <div class="container-fluid">
     <div class="row">
       <nav id="sidebar">
@@ -60,7 +61,7 @@
           </ul>
         </div>
       </nav>
-
+  <div class="d-flex justify-content-center">
       <main role="main" id="content">
 
         <nav aria-label="Page navigation example">
@@ -86,9 +87,10 @@
           <h2 class="text-center">All movies</h2>
             <div class="d-flex justify-content-center flex-wrap">
             {% for elem in movies: %}
-            <div class="film-card">
+            <div class="film-card text-center">
               <span class="fw-bold">{{elem["title"]}}</span> <br>
-              {{elem["release_year"]}}
+              {{elem["release_year"]}} <br>
+              <img src="https://source.unsplash.com/random/150x150/?show,img={{loop.index}}">
             </div>
             {%endfor%}
             </div>
@@ -134,6 +136,7 @@
         <!-- Aggiungi altri contenitori per gli altri generi secondo necessità -->
       </main>
     </div>
+  </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
