@@ -83,14 +83,15 @@
 
 
         <div id="allMovies" style="display: block">
-          <h4>All movie</h4>
-          {%for elem in lista_squadre%}
-            <div class="film-card">{{elem["title"]}}
-            <a>{{elem.title}}</a>
-              <p>{{elem.title}}</p>
+          <h2 class="text-center">All movies</h2>
+            <div class="d-flex justify-content-center flex-wrap">
+            {% for elem in movies: %}
+            <div class="film-card">
+              <span class="fw-bold">{{elem["title"]}}</span> <br>
+              {{elem["release_year"]}}
             </div>
-            <div class="film-card">{{elem.release_year}}</div>
-          {%endfor%}
+            {%endfor%}
+            </div>
           <!-- Aggiungere tutti i film con il genere, data uscita e media del rating-->
         </div>
 
