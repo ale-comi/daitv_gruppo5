@@ -11,8 +11,8 @@ def homepage_data(pagina):
     query = f"""
         SELECT title, release_year 
         FROM movie
-        LIMIT 100
-        OFFSET {(pagina - 1) * 100};
+        LIMIT 48
+        OFFSET {(pagina - 1) * 48};
         """
     
     movie = execute_query(query)

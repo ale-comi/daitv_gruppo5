@@ -26,6 +26,7 @@
     .film-card {
       width: 220px;
       border: 1px solid #ccc;
+      border-radius: 10px;
       padding: 20px;
       margin: 10px;
       background-color: #333;
@@ -84,13 +85,15 @@
 
 
         <div id="allMovies" style="display: block">
-          <h2 class="text-center">All movies</h2>
+          <h1 class="text-center">All movies</h1>
             <div class="d-flex justify-content-center flex-wrap">
             {% for elem in movies: %}
             <div class="film-card text-center">
               <span class="fw-bold">{{elem["title"]}}</span> <br>
               {{elem["release_year"]}} <br>
+              <span class="align-bottom">
               <img src="https://source.unsplash.com/random/150x150/?show,img={{loop.index}}">
+              </span>
             </div>
             {%endfor%}
             </div>
