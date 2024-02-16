@@ -16,8 +16,7 @@
       color: #fff;
       height: 100%;
       position: fixed;
-      width: 250px;
-      overflow-y: auto;
+      width: 250px; /* Aumenta la larghezza della sidebar a tuo piacimento */
     }
 
     .genre {
@@ -36,9 +35,9 @@
     }
 
     #content {
-    margin-left: 250px;
+    margin-left: 250px; /* Assicura che il contenuto inizi dopo la sidebar */
     padding: 20px;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Aggiunto per considerare il padding nel calcolo della larghezza totale */
     }
   </style>
 </head>
@@ -50,12 +49,16 @@
           <ul class="nav flex-column">
             <a class="nav-link" style="text-align: center" href="/">Home</a>
             <br><h4>Generi</h4>
-
-            {% for elem in genres: %}
-              <li class="nav-item">
-                <a class="nav-link genre" onclick="showMovies({{ elem['type'] }})">{{elem["type"]}}</a>
-              </li>
-            {%endfor%}
+<!--            Creare collegamento alla route per query per recuperare i generi-->
+            <li class="nav-item">
+              <a class="nav-link genre" onclick="showMovies('action')">Azione</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link genre" onclick="showMovies('comedy')">Commedia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link genre" onclick="showMovies('drama')">Dramma</a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -145,21 +148,16 @@
 
   <script>
     function showMovies(genre) {
-      // Effettua una richiesta AJAX al server con il genere selezionato
-      $.ajax({
-        url: '/get_movies',
-        type: 'GET',
-        data: { genre: genre },
-        success: function (data) {
-          // Aggiorna l'area del contenuto con i dati dei film ricevuti
-          $('#allMovies').html(data);
-        },
-        error: function (error) {
-          console.error('Errore nel recupero dei film:', error);
-        }
-      });
+      // Nascondi tutti i contenitori dei film
+      document.getElementById('actionMovies').style.display = 'none';
+      document.getElementById('comedyMovies').style.display = 'none';
+      document.getElementById('dramaMovies').style.display = 'none';
+      document.getElementById('allMovies').style.display = 'none';
+
+      // Mostra solo il contenitore del genere selezionato
+      document.getElementById(genre + 'Movies').style.display = 'block';
     }
-</script>
+  </script>
 
 </body>
 </html>
