@@ -9,7 +9,7 @@ db_config = {
 }
 
 
-def create_db():
+def create_db(drop=True):
     localhost_connect = {
         'host': db_config['host'],
         'user': db_config['user'],
@@ -19,10 +19,10 @@ def create_db():
     connection = mysql.connector.connect(**localhost_connect)
     cursor = connection.cursor()
 
-
-    query_drop = f"DROP DATABASE {db_config['database']};"
-    cursor.execute(query_drop)
-    connection.commit()
+    if drop:
+        query_drop = f"DROP DATABASE {db_config['database']};"
+        cursor.execute(query_drop)
+        connection.commit()
     
     
     query_db = f"CREATE DATABASE {db_config['database']};"
