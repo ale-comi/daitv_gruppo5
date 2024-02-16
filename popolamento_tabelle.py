@@ -5,6 +5,26 @@ import csv
 connessione = create_db_connection()
 cursor = connessione.cursor()
 
+def elenco_generi():
+    set_generi = set()
+
+    with open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as file:
+
+        lettore = csv.reader(file, delimiter=",")
+
+        next(lettore)
+
+        for riga in lettore:
+            riga = riga[3].strip("\"").split(",")
+            for i in riga:
+                set_generi.add(i)
+
+    
+    lista_generi = list(set_generi)
+
+    return lista_generi
+
+
 
 def inserimento_film():
     query_insert = """
@@ -12,41 +32,28 @@ def inserimento_film():
     VALUES (%s, %s, %s)
     """
 
-    file = open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="")
+    with open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as file:
 
-    lettore = csv.reader(file, delimiter=",")
+        lettore = csv.reader(file, delimiter=",")
 
-    next(lettore)
+        next(lettore)
 
-    for riga in lettore:
+        for riga in lettore:
 
-        execute_query_insert(
-            query_insert,
-            (
-                riga[0],
-                riga[1],
-                riga[2]
+            execute_query_insert(
+                query_insert,
+                (
+                    riga[0],
+                    riga[1],
+                    riga[2]
 
-            ))
+                ))
+
+    print("record tabella 'film' caricati con successo")
         
 
 def inserimento_generi():
-    set_generi = set()
-
-    file = open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="")
-
-    lettore = csv.reader(file, delimiter=",")
-
-    next(lettore)
-
-    set_generi = set()
-
-    for riga in lettore:
-        riga = riga[3].strip("\"").split(",")
-        for i in riga:
-            set_generi.add(i)
-
-    lista_generi = list(set_generi)
+    lista_generi = elenco_generi()
 
     query_insert = """
     INSERT INTO genres(type) 
@@ -60,6 +67,7 @@ def inserimento_generi():
                 i,
             ))
         
+    print("record tabella 'generi' caricati con successo")
 
 def inserimento_ratings():
     query = """
@@ -74,38 +82,33 @@ def inserimento_ratings():
         next(lettore)
         for elem in lettore:
             lista_rating.append(elem)
-    
 
     dim = 10000
     i = 0
-    j = 10000
+    j = dim
     size = len(lista_rating)
-    print(size)
-    print(lista_rating[1000208])
 
-    # for i in range(tot // dim + 1):
-    # definisco parametro k per calcolare ultimo intervallo
-    # j += dim
-    # if j > tot:
-    #     k = dim - (tot % dim)
+    for _ in range(size // dim + 1):
 
+        #ad ultimo ciclo assegno a j il valore dell'ultimo elemento +1
+        if j >= size:
+            j = j + (size % dim) - dim + 1
 
-    while size >= j:
-   
         params = [
             (elem[0],elem[1],elem[2],elem[3])
             for elem in lista_rating[i : j :]
             ]
-
+        
         cursor.executemany(query, params)
         connessione.commit()
+
+        print(j)
 
         i += dim
         j += dim
 
-        print(j)
-  
-
+    print("record tabella 'rating' caricati con successo")
+        
 def inserimento_utente():
     query = """
     INSERT INTO utente(gender, age, work, cap)
@@ -118,6 +121,8 @@ def inserimento_utente():
         for elem in lettore:
             execute_query_insert(query, (elem[1], elem[2], elem[4], elem[3]))
 
+    print("record tabella 'utente' caricati con successo")
+
 
 def inserimento_type():
     with (open("Dati/elenco_corretto.csv", mode="r", encoding="utf-8", newline="") as file2):
@@ -127,23 +132,54 @@ def inserimento_type():
         for elem in lettore:
             lista_film_generi.append({"id_film":elem[0], "generi":elem[3].split(",")})
 
-    query_id_genere = """SELECT genre_id
-    FROM genres
-    WHERE type = %s"""
-    print("Query in corso...")
-    for elem in lista_film_generi:
-        id_generi = []
-        for genere in elem["generi"]:
-            id_corrispondente = execute_query(query_id_genere, (genere,))
-            id_generi.append(id_corrispondente[0]["genre_id"])
-        elem["generi"] = id_generi
+    lista_generi = elenco_generi()
 
-    query = """
-        INSERT INTO type(genre_id, movie_id)
-        VALUES (%s,%s)
-        """
-    print("Query inserimento in corso...")
+    
+    diz_genere = {}
+
+    query_genere = """
+    SELECT genre_id, type
+    FROM genres
+    """
+
+    lista_diz_colonne = execute_query(query_genere)
+
+    for diz in lista_diz_colonne:
+        diz_genere[diz["type"]] = diz["genre_id"]
+
+    tabella_type = []
+    
     for elem in lista_film_generi:
-        for genere in elem["generi"]:
-            execute_query_insert(query, (genere, elem["id_film"]))
-    print("Dati caricati")
+        for id in elem['generi']:
+            tabella_type.append([diz_genere[id], elem['id_film']])
+
+    query_insert = """
+    INSERT INTO type(genre_id, movie_id) 
+    VALUES (%s, %s)
+    """
+
+    dim = 1000
+    i = 0
+    j = dim
+    size = len(tabella_type)
+
+    for _ in range(size // dim + 1):
+
+        #ad ultimo ciclo assegno a j il valore dell'ultimo elemento +1
+        if j >= size:
+            j = j + (size % dim) - dim + 1
+
+        params = [
+            (elem[0],elem[1])
+            for elem in tabella_type[i : j :]
+            ]
+        
+        cursor.executemany(query_insert, params)
+        connessione.commit()
+
+        print(j)
+
+        i += dim
+        j += dim
+    
+    print("record tabella 'type' caricati con successo")

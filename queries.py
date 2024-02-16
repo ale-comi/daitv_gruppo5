@@ -17,7 +17,8 @@ def create_tables():
     gender VARCHAR(50),
     age INT,
     work VARCHAR(255),
-    cap VARCHAR(5)
+    cap VARCHAR(5),
+    fasciaeta VARCHAR(255)
     );
     """
     execute_query_insert(query)
@@ -59,4 +60,19 @@ def create_tables():
     """
     execute_query_insert(query)
 
+    query = """
+    CREATE TRIGGER check_fasciaeta
+    BEFORE INSERT ON utente
+    FOR EACH ROW
+    SET NEW.fasciaeta = CASE
+    WHEN NEW.age < 18 THEN 'Under 18'
+    WHEN NEW.age >= 18 AND NEW.age <= 24 THEN '18-24'
+    WHEN NEW.age >= 25 AND NEW.age <= 34 THEN '25-34'
+    WHEN NEW.age >= 35 AND NEW.age <= 44 THEN '35-44'
+    WHEN NEW.age >= 45 AND NEW.age <= 54 THEN '45-54'
+    ELSE 'Over 55'
+    END;
+    """
+    execute_query_insert(query)
 
+   
