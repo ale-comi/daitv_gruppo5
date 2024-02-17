@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>test</title>
+  <style>
+
+    .genre {
+      cursor: pointer;
+    }
+
+    .film-card {
+      width: 220px;
+      height: 220px;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px;
+      background-color: #333;
+      color: #ccc;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="bg-image" style="background-image: url('../static/cinema_bg_blur_10.png'); height: 100%; background-attachment: fixed;">
+  <div class="d-flex justify-content-start">
+  
+    <div class="d-flex col-xl-2 col-lg-2 col-3">
+
+      <nav class="bg-dark p-3" style="width: 175px; height: 100%;">
+          <ul class="nav flex-column position-fixed">
+            
+            <a class="nav-link" style="text-align: center" href="/"><h1>DaiTV</h1></a>
+     
+            <br><h4 class="text-white">Generi</h4>
+
+            {% for elem in genres: %}
+              <li class="nav-item">
+                <a class="nav-link genre fw-bold" style="opacity: 150%" onclick="showMovies({{ elem['type'] }})">{{elem["type"]}}</a>
+              </li>
+            {%endfor%}
+          </ul>
+      </nav>
+      </div>
+    
+    <div class="d-flex justify-content-center" style="display: block;">
+
+          <nav aria-label="Page navigation example" class="position-fixed align-bottom fw-bold" style="padding-top: 90vh;">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav> 
+          
+          <div id="allMovies" class="pt-4 p-1" style="display: block;">
+          <h1 class="text-center text-white">All movies</h1>
+            <div class="d-flex justify-content-start flex-wrap">
+            {% for elem in movies: %}
+            <div class="film-card text-center bg-image" 
+                 style="background-image: url('https://source.unsplash.com/random/220x300/?show,img={{loop.index}}')";>
+            <div class="mask" style="background: linear-gradient(to top, hsla(0, 0%, 0%, 0.2) 10%, hsla(0, 0%, 0%, 0.8)); border-radius: 10px;">
+              <!-- <div class="film-title"> -->
+              <div class="fw-bold p-2">{{elem["title"]}}
+              </div>
+              <div>
+                {{elem["release_year"]}}
+              </div> <br>
+            </div>
+            </div>
+            {%endfor%}
+            </div>
+          </div>
+          <!-- Aggiungere tutti i film con il genere, data uscita e media del rating-->
+
+
+<!--        Creare collegamento alla route per query per recuperare i film in base al genere,-->
+<!--        data uscita e media del rating-->
+        <div id="actionMovies" style="display: none;">
+          <div class="film-card">Film Azione 1</div>
+          <div class="film-card">Film Azione 2</div>
+          <!-- Aggiungi altre card per il genere Azione -->
+        </div>
+
+        <div id="comedyMovies" style="display: none;">
+          <div class="film-card">Film Commedia 1</div>
+          <div class="film-card">Film Commedia 2</div>
+          <!-- Aggiungi altre card per il genere Commedia -->
+        </div>
+
+        <div id="dramaMovies" style="display: none;">
+          <div class="film-card">
+            <p>Film Drammatico 1</p>
+            <p>1974</p>
+            <p>Rating: 4.2</p>
+          </div>
+          <div class="film-card">
+            <p>Film Drammatico 2</p>
+            <p>1997</p>
+            <p>Rating: 6.2</p>
+          </div>
+          <div class="film-card">Film Drammatico 3</div>
+          <div class="film-card">Film Drammatico 4</div>
+          <div class="film-card">Film Drammatico 5</div>
+          <div class="film-card">Film Drammatico 6</div>
+          <div class="film-card">Film Drammatico 7</div>
+          <div class="film-card">Film Drammatico 8</div>
+          <div class="film-card">Film Drammatico 9</div>
+          <div class="film-card">Film Drammatico 10</div>
+          <!-- Aggiungi altre card per il genere Drammatico -->
+        </div>
+        <!-- Aggiungi altri contenitori per gli altri generi secondo necessità -->
+      <!-- </main> -->
+    </div>
+    </div>
+    </div>
+  </body>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    function showMovies(genre) {
+      // Effettua una richiesta AJAX al server con il genere selezionato
+      $.ajax({
+        url: '/get_movies',
+        type: 'GET',
+        data: { genre: genre },
+        success: function (data) {
+          // Aggiorna l'area del contenuto con i dati dei film ricevuti
+          $('#allMovies').html(data);
+        },
+        error: function (error) {
+          console.error('Errore nel recupero dei film:', error);
+        }
+      });
+    }
+</script>
+
+</body>
+</html>

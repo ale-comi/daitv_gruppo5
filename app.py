@@ -39,7 +39,7 @@ def homepage(pagina=1):
     data1 = json.loads(genres_data.get_data(as_text=True))
     genres = data1['genres']
 
-    return render_template("test2Bootstrap.html", movies=movies, genres=genres)
+    return render_template("index.html", movies=movies, genres=genres)
 
 
 # Nuovo percorso per gestire le richieste AJAX e restituire i dati dei film
