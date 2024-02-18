@@ -24,7 +24,6 @@ def create_db(drop=True):
         cursor.execute(query_drop)
         connection.commit()
     
-    
     query_db = f"CREATE DATABASE {db_config['database']};"
 
     cursor.execute(query_db)
