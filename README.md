@@ -64,8 +64,8 @@ La barra è sempre presente, sempre accessibile e di dimensione fissa, è il con
 #### TO DO 
 * Non sono ancora attivi i link per le pagine dei generi
     1) Creare la struttura per il caricamento automatico delle pagine collegate
-    1) Definire le queries per i filtri
-    1) Implementare la generazione automatica dei link per ciascun genere
+    2) Definire le queries per i filtri
+    3) Implementare la generazione automatica dei link per ciascun genere
 
 * Sui dispositivi mobile, la visione della barra non avviene correttamente e la visione del contenuto della pagina è limitata.
     1) Implementare una barra laterale a scomparsa per i dispositivi mobile
@@ -80,21 +80,21 @@ Le cards sono mostrate in pagine da 48 elementi.
 #### TO DO
 * Le cards sono mostrate in ordine di inserimento nel database
     1) Definire le queries per ordinare gli show
-    1) Aggiungere alla pagina dei filtri di ordinamento
-    1) Valutare l'ordinamento iniziale con cui si presenta la pagina. Es. rating maggiore
+    2) Aggiungere alla pagina dei filtri di ordinamento
+    3) Valutare l'ordinamento iniziale con cui si presenta la pagina. Es. rating maggiore
 
 * Non è stato implementato un sistema di analisi delle valutazioni dei film, presenti nel database
     1) Definire le queries per ottenere la valutazione media per show
-    1) Implementare il collegamento di ogni card al proprio rating medio
-    1) Valutare la rappresentazione del rating su ogni card
+    2) Implementare il collegamento di ogni card al proprio rating medio
+    3) Valutare la rappresentazione del rating su ogni card
 
 * Non tutti i titoli sono visualizzati correttamente
     1) Terminare una pulizia avanzata dei dati
 
 * Manca sistema CRUD
     1) Valutare modifiche al layout per l'aggiunta delle diverse opzioni
-    1) Definire queries
-    1) Aggiungere collegamenti con interfaccia
+    2) Definire queries
+    3) Aggiungere collegamenti con interfaccia
 
 * La visione delle cards è limitata sui dispositivi mobile
     1) Implementare una rappresentazione ridotta per i dispositi mobile
@@ -112,7 +112,7 @@ In posizione fissa in basso alla finestra si trova la barra di navigazione delle
     <img src="Dati_per_readme/codice_navigazione.png" width="900px" alig="left">
 
     2) Implementare un sistema di modifica della struttura della barra di navigazione in base al numero di pagine presenti
-    1) Collegare links alle queries già definite
+    3) Collegare links alle queries già definite
 
 ### Varie ed eventuali
 * Aggiungere sistema di gestione dei dati tramite MongoDB
